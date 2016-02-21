@@ -13,4 +13,8 @@ model = naiveBayes(gender ~ tripduration + starttime + stoptime + start.station.
 pred = predict(model, unknown, type = "raw")
 unknown$predicted = as.numeric(colnames(pred)[max.col(pred,ties.method = "first")])
 unknown$likelihood = apply(pred,1,max)
+known$predicted = NA
+known$likelihood = NA
+data_pred = rbind(known, unknown)
+
 ``` 
