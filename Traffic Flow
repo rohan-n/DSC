@@ -1,0 +1,75 @@
+convert_time = function(time) {
+  hours = unlist(strsplit(time, ":", fixed = TRUE))[1]
+  minutes = unlist(strsplit(time, ":", fixed = TRUE))[2]
+  return (as.numeric(hours)*60+as.numeric(minutes))
+}
+
+find_start_times = function(data) {
+  times = c()
+  for (date_time_2 in data$starttime) {
+      temp_time = unlist(strsplit(date_time_2, " ", fixed = TRUE))[2]
+      time_in_min = convert_time(temp_time)
+      times = c(times, time_in_min)
+  }
+  return (times)
+}
+
+find_end_times = function(data) {
+  times = c()
+  for (date_time_2 in data$stoptime) {
+      temp_time = unlist(strsplit(date_time_2, " ", fixed = TRUE))[2]
+      time_in_min = convert_time(temp_time)
+      times = c(times, time_in_min)
+  }
+  return (times)
+}
+
+unconvert = function(times_vector) {
+  analog_times = c()
+  for (minutes in times_vector) {
+    hours = as.character(floor(minutes/60))
+    leftover_minutes = as.character(minutes %% 60)
+    if (is.na(as.numeric(leftover_minutes))) {
+      print(minutes)
+      leftover_minutes = "00"
+    }
+    if (as.numeric(leftover_minutes) < 10) {
+      leftover_minutes = paste("0", leftover_minutes, sep = "")
+    }
+    analog_time = paste(hours, ":", leftover_minutes, sep = "")
+    analog_times = c(analog_times, analog_time)
+  }
+  return (analog_times)
+}
+
+b = unconvert(find_start_times(data_pred))
+b = as.POSIXct(b,format="%H:%M") 
+hist(b, "hours")
+c = unconvert(find_end_times(data_pred))
+c = as.POSIXct(c, format ="%H:%M")
+hist(c, "hours")
+
+d = unconvert(find_start_times(female_non_subscribers))
+d = as.POSIXct(c, format ="%H:%M")
+hist(d, "hours")
+summary(d)
+
+starts = function(data_pred) {
+  stations = unique(data_pred$start.station.id)
+  station_list = list()
+  for (station in stations) {
+    bikes_leaving = 0
+    bikes_coming = 0
+    for (i in 1:nrow(data_pred)) {
+      trip = data_pred[i,]
+      if (trip$start.station.id == station) {
+        bikes_leaving = bikes_leaving + 1 }
+      if (trip$end.station.id == station) {
+        bikes_coming = bikes_coming + 1
+      }
+    }
+    bikes = c(bikes_leaving, bikes_coming)
+    station_list[[as.character(station)]] = bikes
+  }
+return (station_list)
+}
