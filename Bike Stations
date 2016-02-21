@@ -2,7 +2,7 @@
 stations = unique(data_pred$start.station.id)
 station_list = list()
 for (station in stations) {
-  bikes = 15
+  bikes = 15 #the base number of bikes at each station
   bikes_over_day = c()
   for (i in 1:nrow(data_pred)) {
     trip = data_pred[i,]
@@ -17,4 +17,4 @@ for (station in stations) {
   }
   station_list[[as.character(station)]] = bikes_over_day
 }
-station_list
+station_list # this gives us a real-time look at the number of bikes at each station throughout the day. Areas of high traffic will see negative numbers of bikes, indicating that these stations started out with more than 15 bikes, but continuously see people borrowing bikes from that area. Therefore, nearby stations would deliver a high level of service. 
