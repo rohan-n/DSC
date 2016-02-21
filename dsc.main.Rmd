@@ -16,5 +16,6 @@ unknown$likelihood = apply(pred,1,max)
 known$predicted = NA
 known$likelihood = NA
 data_pred = rbind(known, unknown)
+data_pred$age = 2016-data_pred$birth.year
 
 ``` 
