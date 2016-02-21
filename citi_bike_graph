@@ -1,0 +1,28 @@
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+G = nx.Graph()
+mat = np.loadtxt('nodes_all.txt')
+weight_max = 0
+start_max = 0
+end_max = 0
+for i in range(len(mat)): 
+	start = mat[i][0]
+	end = mat[i][1]
+	if(G.has_edge(start,end)):
+		G[start][end]['weight'] += 1
+		if(G[start][end]['weight'] >= weight_max): 
+			weight_max = G[start][end]['weight']
+			start_max = start
+			end_max = end
+	else:
+		G.add_edge(start,end,weight = 1)
+# print(weight_max)
+# print(start_max,end_max)
+a = nx.get_edge_attributes(G,'weight')
+print (sorted(a.values())[::-1])
+popular_stations = []
+for key in a:
+	if(a[key]>29):
+		popular_stations+=key
+print(popular_stations)
