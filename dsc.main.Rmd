@@ -39,21 +39,21 @@ for (station in stations) {
 }
 summary(station_list)
 
-trip_numbers = function(data_pred) {
+starts = function(data_pred) {
   stations = unique(data_pred$start.station.id)
   station_list = list()
   for (station in stations) {
     bikes_leaving = 0
-    bikes_going = 0
+    bikes_coming = 0
     for (i in 1:nrow(data_pred)) {
       trip = data_pred[i,]
       if (trip$start.station.id == station) {
-        bikes_leaving += 1 }
+        bikes_leaving = bikes_leaving + 1 }
       if (trip$end.station.id == station) {
-        bikes_going += 1
+        bikes_coming = bikes_coming + 1
       }
-      bikes = c(bikes_leaving, bikes_going)
-      }
+    }
+    bikes = c(bikes_leaving, bikes_coming)
     station_list[[as.character(station)]] = bikes
   }
 return (station_list)
