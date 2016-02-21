@@ -38,7 +38,6 @@ for (station in stations) {
   station_list[[station]] = bikes_over_day
 }
 summary(station_list)
-``` 
 
 trip_numbers = function(data_pred) {
   stations = unique(data_pred$start.station.id)
@@ -59,3 +58,4 @@ trip_numbers = function(data_pred) {
   }
 return (station_list)
 }
+``` 
