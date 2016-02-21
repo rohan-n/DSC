@@ -1,3 +1,4 @@
+#To better understand the traffic patterns within the city, we constructed a network, using the stations as nodes and edges to denote a trip between two stations. More heavily weighted edges mean that more people are travelling between those two stations, giving us a better sense of where the riders are headed. Coupled with the subsetting previously done, it also allows us to see where specific groups are more likely to go. 
 nodes = function(data) {
   nodes_mat = matrix(nrow = nrow(data), ncol = 2)
   nodes_mat[,1] = data$start.station.id 
