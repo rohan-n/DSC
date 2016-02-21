@@ -37,7 +37,7 @@ for (station in stations) {
   }
   station_list[[station]] = bikes_over_day
 }
-summary(station_list)
+station_list
 
 starts = function(data_pred) {
   stations = unique(data_pred$start.station.id)
