@@ -5,4 +5,7 @@ output: html_document
 ```{r}
 data = read.csv('20150708-citibike-tripdata.csv')
 colnames(data)
+install.packages('e1071')
+library('e1071')
+
 ``` 
