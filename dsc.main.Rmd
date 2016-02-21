@@ -7,5 +7,8 @@ data = read.csv('20150708-citibike-tripdata.csv')
 colnames(data)
 install.packages('e1071')
 library('e1071')
-
+unknown = split(data, data$gender)$'0'
+known = rbind(split(data, data$gender)$'1', split(data, data$gender)$'2') 
+model = naiveBayes(gender ~ tripduration + starttime + stoptime + start.station.id + end.station.id + birth.year, known)
+pred = predict(model, unknown, type = "raw")
 ``` 
