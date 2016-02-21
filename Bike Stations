@@ -1,0 +1,20 @@
+#this function tracks the change in the number of bikes throughout the day at each station. 
+stations = unique(data_pred$start.station.id)
+station_list = list()
+for (station in stations) {
+  bikes = 15
+  bikes_over_day = c()
+  for (i in 1:nrow(data_pred)) {
+    trip = data_pred[i,]
+    if (trip$start.station.id == station) {
+      bikes = bikes - 1
+      bikes_over_day = c(bikes_over_day, bikes)
+    }
+    if (trip$end.station.id == station) {
+      bikes = bikes + 1
+      bikes_over_day = c(bikes_over_day, bikes)
+    }
+  }
+  station_list[[as.character(station)]] = bikes_over_day
+}
+station_list
