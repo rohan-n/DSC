@@ -18,4 +18,24 @@ known$likelihood = NA
 data_pred = rbind(known, unknown)
 data_pred$age = 2015-data_pred$birth.year
 
+
+stations = unique(data_pred$start.station.id)
+station_list = list()
+for (station in stations) {
+  bikes = 15
+  bikes_over_day = c()
+  for (i in 1:nrow(data_pred)) {
+    trip = data_pred[i,]
+    if (trip$start.station.id == station) {
+      bikes = bikes - 1
+      bikes_over_day = c(bikes_over_day, bikes)
+    }
+    if (trip$end.station.id == station) {
+      bikes = bikes + 1
+      bikes_over_day = c(bikes_over_day, bikes)
+    }
+  }
+  station_list[[station]] = bikes_over_day
+}
+summary(station_list)
 ``` 
