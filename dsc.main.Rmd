@@ -1,0 +1,8 @@
+---
+title: "DSC"
+output: html_document
+---
+```{r}
+data = read.csv('20150708-citibike-tripdata.csv')
+colnames(data)
+``` 
