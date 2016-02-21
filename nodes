@@ -1,3 +1,10 @@
+nodes = function(data) {
+  nodes_mat = matrix(nrow = nrow(data), ncol = 2)
+  nodes_mat[,1] = data$start.station.id 
+  nodes_mat[,2] = data$end.station.id
+  return (nodes_mat)
+}
+
 all_nodes = nodes(data_pred)
 males = data_pred[which(data_pred$gender == 1 | data_pred$predicted == 1),]
 male_nodes = nodes(males)
