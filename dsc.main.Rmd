@@ -11,4 +11,6 @@ unknown = split(data, data$gender)$'0'
 known = rbind(split(data, data$gender)$'1', split(data, data$gender)$'2') 
 model = naiveBayes(gender ~ tripduration + starttime + stoptime + start.station.id + end.station.id + birth.year, known)
 pred = predict(model, unknown, type = "raw")
+unknown$predicted = as.numeric(colnames(pred)[max.col(pred,ties.method = "first")])
+unknown$likelihood = apply(pred,1,max)
 ``` 
