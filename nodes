@@ -1,4 +1,4 @@
-nodes1 = matrix(nrow = nrow(data_pred), ncol = 2)
-nodes1[,1] = data_pred$start.station.id 
-nodes1[,2] = data_pred$end.station.id
-nodes1
+nodes_all = matrix(nrow = nrow(data_pred), ncol = 2)
+nodes_all[,1] = data_pred$start.station.id 
+nodes_all[,2] = data_pred$end.station.id
+nodes_all
