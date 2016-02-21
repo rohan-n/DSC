@@ -1,4 +1,18 @@
-nodes_all = matrix(nrow = nrow(data_pred), ncol = 2)
-nodes_all[,1] = data_pred$start.station.id 
-nodes_all[,2] = data_pred$end.station.id
-nodes_all
+all_nodes = nodes(data_pred)
+males = data_pred[which(data_pred$gender == 1 | data_pred$predicted == 1),]
+male_nodes = nodes(males)
+
+females = data_pred[which(data_pred$gender == 2 | data_pred$predicted == 2),]
+female_nodes = nodes(females)
+
+male_subscribers = males[which(is.na(males$predicted)),]
+male_subscribers_nodes = nodes(male_subscribers)
+
+female_subscribers = females[which(is.na(females$predicted)),]
+female_subscribers_nodes = nodes(female_subscribers)
+
+male_non_subscribers = males[which(!is.na(males$predicted)),]
+male_non_subscribers_nodes = nodes(male_non_subscribers)
+
+female_non_subscribers = females[which(!is.na(females$predicted)),]
+female_non_subscribers_nodes = nodes(female_non_subscribers)
